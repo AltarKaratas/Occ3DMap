@@ -22,6 +22,8 @@ public:
         }
     };
 
+   
+
     OccupancyGrid(double voxel_size);
 
     void integrate(const std::vector<Eigen::Vector3d>& cloud, const Eigen::Matrix4d& pose);
