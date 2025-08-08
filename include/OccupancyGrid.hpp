@@ -22,25 +22,25 @@ public:
         }
     };
 
-   
+    OccupancyGrid(const double voxel_size);
 
-    OccupancyGrid(double voxel_size);
+    std::unordered_map<VoxelKey, double, VoxelKeyHasher> getGrid(){return m_grid;};
+
+    double getVoxelSize(){return m_voxel_size;};
 
     void integrate(const std::vector<Eigen::Vector3d>& cloud, const Eigen::Matrix4d& pose);
 
-    std::vector<Eigen::Vector3d> getOccupiedPoints() const;
-
     std::vector<VoxelKey> bresenham3D(const VoxelKey& start, const VoxelKey& end) const;
 
-    std::vector<Eigen::Vector3d> DownsamplePCD(const std::vector<Eigen::Vector3d>& cloud, double voxel_size);
+    std::vector<Eigen::Vector3d> DownsamplePCD(const std::vector<Eigen::Vector3d>& cloud, const double voxel_size) const;
 
 private:
     
-    double m_voxel_size;
-    double m_loggodds_occ;
-    double m_loggodds_free;
-    double m_loggodds_min;
-    double m_loggodds_max;
+    const double m_voxel_size;
+    const double m_loggodds_occ;
+    const double m_loggodds_free;
+    const double m_loggodds_min;
+    const double m_loggodds_max;
     //very fast access times. good for space.
-    std::unordered_map<VoxelKey, double, VoxelKeyHasher> m_grid; // true = occupied
+    std::unordered_map<VoxelKey, double, VoxelKeyHasher> m_grid;
 };
